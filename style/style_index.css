@@ -1,0 +1,568 @@
+:root {
+    --primary-red: #8E1616;
+    --secondary-red: #D84040;
+    --dark-bg: #1D1616;
+    --light-gray: #EEEEEE;
+    --text-dark: #1D1616;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Montserrat', sans-serif;
+    background-color: var(--dark-bg);
+    color: white;
+    overflow-x: hidden;
+}
+
+.hero-section {
+    background: linear-gradient(rgba(30, 22, 22, 0.8), rgba(30, 22, 22, 0.8)), url('../asset/bg_index.jpg') center/cover;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    position: relative;
+}
+
+.navbar-custom {
+    background: rgba(30, 22, 22, 0.3);
+    backdrop-filter: blur(10px);
+    padding: 20px 0;
+}
+
+.navbar-brand {
+    font-family: 'Urbanist', sans-serif;
+    font-weight: 800;
+    font-size: 32px;
+    color: white !important;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.logo-icon {
+    width: 40px;
+    height: 40px;
+    background: var(--primary-red);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: bold;
+}
+
+.navbar-nav .nav-link {
+    color: white !important;
+    font-weight: 500;
+    margin: 0 15px;
+    transition: color 0.3s ease;
+}
+
+.navbar-nav .nav-link:hover {
+    color: var(--secondary-red) !important;
+}
+
+.hero-content {
+    text-align: center;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.hero-title {
+    font-family: 'Urbanist', sans-serif;
+    font-size: 72px;
+    font-weight: 900;
+    line-height: 1.1;
+    margin-bottom: 30px;
+    background: linear-gradient(45deg, white, var(--secondary-red));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.hero-subtitle {
+    font-size: 24px;
+    font-weight: 400;
+    margin-bottom: 50px;
+    opacity: 0.9;
+    line-height: 1.6;
+}
+
+.btn-primary-custom {
+    background: var(--primary-red);
+    border: none;
+    padding: 18px 40px;
+    font-size: 18px;
+    font-weight: 600;
+    border-radius: 50px;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.btn-primary-custom:hover {
+    background: var(--secondary-red);
+    transform: translateY(-3px);
+    box-shadow: 0 10px 30px rgba(216, 64, 64, 0.4);
+}
+
+/* Enhanced Leagues Section with Marquee Animation */
+.leagues-section {
+    padding: 40px 0;
+    text-align: center;
+    background: linear-gradient(135deg, rgba(30, 22, 22, 0.9), rgba(45, 30, 30, 0.9));
+    position: relative;
+    overflow: hidden;
+}
+
+.leagues-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    animation: float 20s linear infinite;
+    pointer-events: none;
+}
+
+@keyframes float {
+    0% { transform: translateY(0px); }
+    100% { transform: translateY(-100px); }
+}
+
+/* Marquee Container */
+.marquee-container {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    padding: 30px 0;
+    margin-top: 30px;
+}
+
+.marquee-track {
+    display: flex;
+    animation: marquee 30s linear infinite;
+    gap: 80px;
+    align-items: center;
+}
+
+@keyframes marquee {
+    0% {
+        transform: translateX(100%);
+    }
+    100% {
+        transform: translateX(-100%);
+    }
+}
+
+.league-item {
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    transition: transform 0.3s ease;
+    cursor: pointer;
+}
+
+.league-item:hover {
+    transform: translateY(-10px) scale(1.1);
+}
+
+.league-logo {
+    width: 80px;
+    height: 80px;
+    background: linear-gradient(135deg, rgba(255,255,255,0.1), rgba(255,255,255,0.05));
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    backdrop-filter: blur(10px);
+    border: 2px solid rgba(255,255,255,0.1);
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.league-logo::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(45deg, transparent, rgba(255,255,255,0.1), transparent);
+    transform: rotate(45deg);
+    transition: all 0.6s ease;
+    opacity: 0;
+}
+
+.league-item:hover .league-logo::before {
+    animation: shine 0.6s ease-in-out;
+}
+
+@keyframes shine {
+    0% {
+        transform: translateX(-100%) translateY(-100%) rotate(45deg);
+        opacity: 0;
+    }
+    50% {
+        opacity: 1;
+    }
+    100% {
+        transform: translateX(100%) translateY(100%) rotate(45deg);
+        opacity: 0;
+    }
+}
+
+.league-item:hover .league-logo {
+    background: linear-gradient(135deg, rgba(216, 64, 64, 0.3), rgba(142, 22, 22, 0.3));
+    border-color: var(--secondary-red);
+    box-shadow: 0 10px 30px rgba(216, 64, 64, 0.3);
+}
+
+.league-logo i {
+    font-size: 40px;
+    z-index: 2;
+    position: relative;
+}
+
+.league-name {
+    font-size: 0.9rem;
+    font-weight: 600;
+    opacity: 0.8;
+    transition: opacity 0.3s ease;
+    text-align: center;
+}
+
+.league-item:hover .league-name {
+    opacity: 1;
+    color: var(--secondary-red);
+}
+
+/* Different colors for each league */
+.premier-league .league-logo i { color: #37003c; }
+.champions-league .league-logo i { color: #004494; }
+.la-liga .league-logo i { color: #ce1124; }
+.serie-a .league-logo i { color: #00529f; }
+.bundesliga .league-logo i { color: #1e3a8a; }
+.ligue1 .league-logo i { color: #002868; }
+.europa .league-logo i { color: #d4af37; }
+.world-cup .league-logo i { color: #ff6b35; }
+
+/* Ripple effect keyframe */
+@keyframes ripple {
+    to {
+        transform: scale(2);
+        opacity: 0;
+    }
+}
+
+.video-container {
+    position: relative;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    transition: transform 0.3s ease;
+}
+
+.video-container:hover {
+    transform: translateY(-5px);
+}
+
+.video-container iframe {
+    border-radius: 15px;
+}
+
+.section-title {
+    font-family: 'Urbanist', sans-serif;
+    font-size: 64px;
+    font-weight: 800;
+    color: var(--secondary-red);
+    margin-bottom: 30px;
+}
+
+.section-subtitle {
+    font-size: 18px;
+    line-height: 1.8;
+    max-width: 600px;
+    margin: 0 auto;
+    opacity: 0.9;
+}
+
+.testimonial-time {
+    margin-top: 4px;
+}
+
+.testimonial-time small {
+    font-size: 0.75rem;
+    opacity: 0.7;
+}
+
+.testimonials-section {
+    padding: 100px 0;
+    background: rgba(30, 22, 22, 0.5);
+}
+
+.testimonial-card {
+    background: var(--primary-red);
+    border-radius: 15px;
+    padding: 30px;
+    margin: 15px;
+    position: relative;
+    transition: transform 0.3s ease;
+    animation: slideInUp 0.6s ease-out;
+}
+
+.testimonial-card:hover {
+    transform: translateY(-5px);
+}
+
+@keyframes slideInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.testimonial-card:nth-child(1) { animation-delay: 0.1s; }
+.testimonial-card:nth-child(2) { animation-delay: 0.2s; }
+.testimonial-card:nth-child(3) { animation-delay: 0.3s; }
+.testimonial-card:nth-child(4) { animation-delay: 0.4s; }
+
+.testimonial-card::before {
+    content: '"';
+    font-size: 60px;
+    font-weight: bold;
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    opacity: 0.2;
+    color: white;
+    z-index: 1;
+}
+
+.testimonial-card.recent::before {
+    content: "New";
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: linear-gradient(135deg, #28a745, #20c997);
+    color: white;
+    padding: 2px 8px;
+    border-radius: 12px;
+    font-size: 0.7rem;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.testimonial-text {
+    font-size: 16px;
+    line-height: 1.6;
+    margin-bottom: 20px;
+    position: relative;
+    z-index: 2;
+}
+
+.testimonial-author {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.author-avatar {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: bold;
+}
+
+.author-info h6 {
+    margin: 0;
+    font-weight: 600;
+}
+
+.author-info small {
+    opacity: 0.8;
+}
+
+.contact-section {
+    padding: 100px 0;
+}
+
+.contact-form {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+    padding: 40px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.contact-info {
+    background: var(--primary-red);
+    border-radius: 20px;
+    padding: 40px;
+    height: 100%;
+}
+
+.form-control {
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: white;
+    border-radius: 10px;
+    padding: 15px;
+}
+
+.form-control:focus {
+    background: rgba(255, 255, 255, 0.15);
+    border-color: var(--secondary-red);
+    color: white;
+    box-shadow: 0 0 0 0.2rem rgba(216, 64, 64, 0.25);
+}
+
+.form-control::placeholder {
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.contact-info h4 {
+    font-family: 'Urbanist', sans-serif;
+    font-weight: 700;
+    margin-bottom: 30px;
+}
+
+.contact-item {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 25px;
+}
+
+.contact-icon {
+    width: 50px;
+    height: 50px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+}
+
+.social-links {
+    display: flex;
+    gap: 15px;
+    margin-top: 30px;
+}
+
+.social-link {
+    width: 50px;
+    height: 50px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    text-decoration: none;
+    transition: background 0.3s ease;
+}
+
+.social-link:hover {
+    background: rgba(255, 255, 255, 0.3);
+    color: white;
+}
+
+.footer {
+    background: rgba(0, 0, 0, 0.8);
+    padding: 50px 0 30px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.footer-brand {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.footer h5 {
+    font-family: 'Urbanist', sans-serif;
+    font-weight: 700;
+    margin-bottom: 20px;
+}
+
+.footer-link {
+    color: rgba(255, 255, 255, 0.7);
+    text-decoration: none;
+    display: block;
+    margin-bottom: 10px;
+    transition: color 0.3s ease;
+}
+
+.footer-link:hover {
+    color: var(--secondary-red);
+}
+
+.copyright {
+    text-align: center;
+    padding-top: 30px;
+    margin-top: 30px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    opacity: 0.7;
+}
+
+@media (max-width: 768px) {
+    .hero-title {
+        font-size: 48px;
+        margin-top: 100px;
+    }
+    
+    .hero-subtitle {
+        font-size: 18px;
+    }
+    
+    .section-title {
+        font-size: 36px;
+    }
+    
+    .testimonial-card {
+        margin-bottom: 20px;
+    }    
+
+    .video-container iframe {
+        height: 250px;
+    }
+
+    /* Updated responsive design untuk league section */
+    .leagues-section {
+        padding: 20px 0;
+    }
+    
+    .league-logo {
+        width: 60px;
+        height: 60px;
+    }
+    
+    .marquee-track {
+        gap: 50px;
+    }
+    
+    .league-name {
+        font-size: 0.8rem;
+    }
+}
