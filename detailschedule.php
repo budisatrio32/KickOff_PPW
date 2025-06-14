@@ -1,8 +1,6 @@
 <?php
 include_once("config.php");
 requireLogin();
-
-// Ambil parameter match ID dari URL
 $match_id = $_GET['match'] ?? null;
 
 if (!$match_id) {
@@ -47,7 +45,6 @@ if (!$match_data) {
     exit();
 }
 
-// Function untuk mendapatkan logo tim dengan fallback
 function getTeamLogo($logo_filename, $team_name, $team_id) {
     $team_logo_path = 'uploads/teams/';
     
@@ -443,7 +440,6 @@ $back_url = "schedule.php?league=" . urlencode($match_data['ID_LIGA']);
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-        // Add keyboard navigation for back button
         document.querySelector('.back-button').addEventListener('keydown', function(e) {
             if (e.key === 'Enter' || e.key === ' ') {
                 e.preventDefault();
@@ -451,9 +447,7 @@ $back_url = "schedule.php?league=" . urlencode($match_data['ID_LIGA']);
             }
         });
 
-        // Initialize page
         document.addEventListener('DOMContentLoaded', function() {
-            // Add entrance animations
             const elements = document.querySelectorAll('.team-showcase, .stadium-detail-card, .team-lineup');
             elements.forEach((element, index) => {
                 element.style.opacity = '0';
@@ -466,7 +460,6 @@ $back_url = "schedule.php?league=" . urlencode($match_data['ID_LIGA']);
                 }, index * 100);
             });
 
-            // Add hover effects for table rows
             document.querySelectorAll('.lineup-table tbody tr, .coach-table tbody tr').forEach(row => {
                 row.addEventListener('mouseenter', function() {
                     this.style.transform = 'translateX(8px)';
@@ -479,7 +472,6 @@ $back_url = "schedule.php?league=" . urlencode($match_data['ID_LIGA']);
                 });
             });
 
-            // Add click effects for interactive elements
             document.querySelectorAll('.back-button').forEach(button => {
                 button.addEventListener('click', function() {
                     this.style.transform = 'scale(0.95)';
@@ -489,7 +481,6 @@ $back_url = "schedule.php?league=" . urlencode($match_data['ID_LIGA']);
                 });
             });
 
-            // Loading state for images
             document.querySelectorAll('img').forEach(img => {
                 img.addEventListener('load', function() {
                     this.style.opacity = '1';
@@ -500,7 +491,6 @@ $back_url = "schedule.php?league=" . urlencode($match_data['ID_LIGA']);
                 });
             });
 
-            // Add ripple effect to buttons
             document.querySelectorAll('.back-button').forEach(button => {
                 button.addEventListener('click', function(e) {
                     const ripple = document.createElement('span');
@@ -533,7 +523,6 @@ $back_url = "schedule.php?league=" . urlencode($match_data['ID_LIGA']);
                 });
             });
 
-            // Smooth scroll to top when back button is clicked
             document.querySelector('.back-button').addEventListener('click', function(e) {
                 window.scrollTo({
                     top: 0,
@@ -542,7 +531,6 @@ $back_url = "schedule.php?league=" . urlencode($match_data['ID_LIGA']);
             });
         });
 
-        // Add CSS for ripple animation
         const style = document.createElement('style');
         style.textContent = `
             @keyframes rippleAnimation {

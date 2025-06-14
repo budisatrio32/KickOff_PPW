@@ -13,7 +13,6 @@
     <link rel="stylesheet" href="style\style_register.css">
 </head>
 <body>
-    <!-- Back to Home -->
     <a href="login.php" class="back-home">
         <i class="bi bi-arrow-left me-2"></i>
         Return Back

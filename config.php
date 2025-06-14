@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-// TAMBAHKAN INI DI PALING ATAS
+// DEBUGGING
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 ini_set('log_errors', 1);
@@ -20,7 +20,6 @@ if (!$conn) {
     die("Koneksi gagal: " . mysqli_connect_error());
 }
 
-// Set charset to utf8
 mysqli_set_charset($conn, "utf8");
 
 // Security functions

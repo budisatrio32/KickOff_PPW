@@ -1,8 +1,6 @@
 <?php
 include_once("config.php");
 requireLogin();
-
-// Ambil parameter league dari URL
 $selected_league = $_GET['league'] ?? null;
 
 if (!$selected_league) {
@@ -34,7 +32,7 @@ $logo_mapping = [
     'LG007' => 'uploads/leagues/liga_1_indonesia.png',
 ];
 
-// Function untuk mendapatkan logo liga
+// Function untuk mendapatkan logo
 function getLeagueLogo($id_liga, $logo_from_db, $logo_mapping) {
     if (!empty($logo_from_db) && file_exists($logo_from_db)) {
         return $logo_from_db;
@@ -51,10 +49,7 @@ function getLeagueLogo($id_liga, $logo_from_db, $logo_mapping) {
 function getTeamLogo($logo_filename, $team_name, $team_id) {
     // Path folder logo tim
     $team_logo_path = 'uploads/teams/';
-    
-    // 1. Cek logo dari database (filename saja)
     if (!empty($logo_filename)) {
-        // Tambahkan ekstensi jika tidak ada
         $possible_extensions = ['', '.png', '.jpg', '.jpeg', '.gif', '.webp'];
         
         foreach ($possible_extensions as $ext) {
@@ -63,22 +58,18 @@ function getTeamLogo($logo_filename, $team_name, $team_id) {
                 return $full_path;
             }
         }
-        
-        // Coba tanpa menambah ekstensi (jika sudah lengkap)
         $direct_path = $team_logo_path . $logo_filename;
         if (file_exists($direct_path)) {
             return $direct_path;
         }
     }
     
-    // 2. Coba berdasarkan nama tim (normalize nama)
     if (!empty($team_name)) {
         $normalized_name = strtolower(str_replace(' ', '_', $team_name));
         $possible_files = [
             $normalized_name . '.png',
             $normalized_name . '.jpg',
             $normalized_name . '.jpeg',
-            // Coba juga tanpa spasi
             str_replace('_', '', $normalized_name) . '.png',
             str_replace('_', '', $normalized_name) . '.jpg'
         ];
@@ -91,10 +82,8 @@ function getTeamLogo($logo_filename, $team_name, $team_id) {
         }
     }
     
-    // 3. Generate placeholder dengan nama tim yang smart
     $team_short = '';
     if (!empty($team_name)) {
-        // Ambil huruf pertama dari setiap kata
         $words = array_filter(explode(' ', $team_name));
         if (count($words) >= 2) {
             $team_short = strtoupper(substr($words[0], 0, 1) . substr($words[1], 0, 1));
@@ -105,7 +94,6 @@ function getTeamLogo($logo_filename, $team_name, $team_id) {
         $team_short = strtoupper(substr($team_id, -3));
     }
     
-    // Random colors berdasarkan nama untuk konsistensi
     $colors = ['FF6B6B', '4ECDC4', '45B7D1', 'FFA07A', '98D8C8', 'F7DC6F', 'BB8FCE', '85C1E9', 'F8C471', 'D7BDE2'];
     $color_index = abs(crc32($team_name ?: $team_id)) % count($colors);
     $bg_color = $colors[$color_index];
@@ -113,7 +101,6 @@ function getTeamLogo($logo_filename, $team_name, $team_id) {
     return 'https://via.placeholder.com/45x45/' . $bg_color . '/FFFFFF?text=' . urlencode($team_short);
 }
 
-// ========= PERBAIKAN UTAMA: Query SQL dengan nama kolom yang benar =========
 $matches_query = "
     SELECT 
         p.*,
@@ -135,14 +122,12 @@ mysqli_stmt_bind_param($matches_stmt, "s", $selected_league);
 mysqli_stmt_execute($matches_stmt);
 $matches_result = mysqli_stmt_get_result($matches_stmt);
 
-// Kelompokkan pertandingan berdasarkan tanggal
 $matches_by_date = [];
 $today = date('Y-m-d');
 
 while ($match = mysqli_fetch_assoc($matches_result)) {
     $match_date = $match['TANGGAL'];
     
-    // Tentukan status pertandingan
     $match_datetime = $match_date . ' ' . $match['WAKTU'];
     $now = date('Y-m-d H:i:s');
     
@@ -165,7 +150,6 @@ while ($match = mysqli_fetch_assoc($matches_result)) {
     $matches_by_date[$formatted_date][] = $match;
 }
 
-// Get league logo - perbaiki jika kolom liga juga salah
 $league_logo = getLeagueLogo($liga_data['ID_LIGA'], $liga_data['LOGO'] ?? '', $logo_mapping);
 ?>
 
@@ -237,7 +221,6 @@ $league_logo = getLeagueLogo($liga_data['ID_LIGA'], $liga_data['LOGO'] ?? '', $l
                         </li>
                     <?php endif; ?>
                     
-                    <!-- Simple User Info -->
                     <li class="nav-item">
                         <span class="nav-link text-white">
                             Selamat datang, <strong><?php echo htmlspecialchars(getCurrentUserName()); ?></strong>
@@ -263,8 +246,8 @@ $league_logo = getLeagueLogo($liga_data['ID_LIGA'], $liga_data['LOGO'] ?? '', $l
             <div class="league-header-content">
                 <figure class="league-logo-header" aria-label="<?php echo htmlspecialchars($liga_data['NAMA_LIGA']); ?> Logo">
                     <img src="<?php echo htmlspecialchars($league_logo); ?>" 
-                         alt="<?php echo htmlspecialchars($liga_data['NAMA_LIGA']); ?> Official Logo" 
-                         onerror="this.src='https://via.placeholder.com/70x70/FF6B6B/FFFFFF?text=<?php echo substr($liga_data['ID_LIGA'], -2); ?>'">
+                        alt="<?php echo htmlspecialchars($liga_data['NAMA_LIGA']); ?> Official Logo" 
+                        onerror="this.src='https://via.placeholder.com/70x70/FF6B6B/FFFFFF?text=<?php echo substr($liga_data['ID_LIGA'], -2); ?>'">
                 </figure>
                 <h1 class="league-title"><?php echo strtoupper(htmlspecialchars($liga_data['NAMA_LIGA'])); ?></h1>
                 <p class="league-subtitle">Professional Football League</p>
@@ -321,7 +304,7 @@ $league_logo = getLeagueLogo($liga_data['ID_LIGA'], $liga_data['LOGO'] ?? '', $l
                     <div class="matches-grid" role="list" aria-label="<?php echo $date; ?>'s matches">
                         <?php foreach ($matches as $index => $match): ?>
                             <?php
-                            // Generate unique IDs untuk accessibility
+                            // Generate unique ID
                             $match_id = 'match' . $match['ID_PERTANDINGAN'];
                             $teams_id = $match_id . '-teams';
                             $info_id = $match_id . '-info';
@@ -336,7 +319,6 @@ $league_logo = getLeagueLogo($liga_data['ID_LIGA'], $liga_data['LOGO'] ?? '', $l
                                 $status_display = 'Today';
                             }
                             
-                            // Team logos dengan smart detection dari database
                             $away_logo = getTeamLogo($match['away_team_logo'], $match['away_team_name'], $match['ID_AWAYTEAM']);
                             $home_logo = getTeamLogo($match['home_team_logo'], $match['home_team_name'], $match['ID_HOMETEAM']);
                             ?>
@@ -485,22 +467,18 @@ $league_logo = getLeagueLogo($liga_data['ID_LIGA'], $liga_data['LOGO'] ?? '', $l
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <script>
         function filterMatches(type) {
-            // Remove active class and aria-selected from all tabs
             document.querySelectorAll('.filter-tab').forEach(tab => {
                 tab.classList.remove('active');
                 tab.setAttribute('aria-selected', 'false');
             });
             
-            // Add active class and aria-selected to clicked tab
             event.target.classList.add('active');
             event.target.setAttribute('aria-selected', 'true');
             
-            // Get all match cards
             const matchCards = document.querySelectorAll('.match-card');
             const sections = document.querySelectorAll('.matches-section');
             
             if (type === 'all') {
-                // Show all sections and cards
                 sections.forEach(section => {
                     section.style.display = 'block';
                 });
@@ -509,12 +487,10 @@ $league_logo = getLeagueLogo($liga_data['ID_LIGA'], $liga_data['LOGO'] ?? '', $l
                     card.setAttribute('aria-hidden', 'false');
                 });
             } else {
-                // Hide all sections first
                 sections.forEach(section => {
                     section.style.display = 'none';
                 });
                 
-                // Show sections and cards that match the filter
                 matchCards.forEach(card => {
                     const status = card.getAttribute('data-status');
                     const section = card.closest('.matches-section');
@@ -530,7 +506,6 @@ $league_logo = getLeagueLogo($liga_data['ID_LIGA'], $liga_data['LOGO'] ?? '', $l
                     }
                 });
                 
-                // Special case for 'today' filter - show today section title
                 if (type === 'today') {
                     const todaySection = document.querySelector('.matches-section h2[id*="heading"]');
                     if (todaySection && todaySection.textContent.includes('Today')) {
@@ -539,12 +514,10 @@ $league_logo = getLeagueLogo($liga_data['ID_LIGA'], $liga_data['LOGO'] ?? '', $l
                 }
             }
             
-            // Add smooth transition
             matchCards.forEach(card => {
                 card.style.transition = 'all 0.3s ease';
             });
 
-            // Announce to screen readers
             const visibleCards = document.querySelectorAll('.match-card[aria-hidden="false"]').length;
             const announcement = `Showing ${visibleCards} ${type === 'all' ? '' : type} matches`;
             announceToScreenReader(announcement);
@@ -563,7 +536,6 @@ $league_logo = getLeagueLogo($liga_data['ID_LIGA'], $liga_data['LOGO'] ?? '', $l
             }, 1000);
         }
 
-        // Navbar background change on scroll
         window.addEventListener('scroll', function() {
             const navbar = document.querySelector('.navbar-custom');
             if (window.scrollY > 50) {
@@ -573,17 +545,14 @@ $league_logo = getLeagueLogo($liga_data['ID_LIGA'], $liga_data['LOGO'] ?? '', $l
             }
         });
 
-        // Add keyboard navigation for match cards
         document.querySelectorAll('.match-card').forEach(card => {
             card.addEventListener('click', function() {
-                // Add click effect
                 this.style.transform = 'scale(0.98)';
                 setTimeout(() => {
                     this.style.transform = '';
                 }, 150);
             });
 
-            // Add keyboard support
             card.addEventListener('keydown', function(e) {
                 if (e.key === 'Enter' || e.key === ' ') {
                     e.preventDefault();
@@ -592,7 +561,6 @@ $league_logo = getLeagueLogo($liga_data['ID_LIGA'], $liga_data['LOGO'] ?? '', $l
             });
         });
 
-        // Add keyboard navigation for filter tabs
         document.querySelectorAll('.filter-tab').forEach(tab => {
             tab.addEventListener('keydown', function(e) {
                 if (e.key === 'Enter' || e.key === ' ') {
@@ -602,9 +570,7 @@ $league_logo = getLeagueLogo($liga_data['ID_LIGA'], $liga_data['LOGO'] ?? '', $l
             });
         });
 
-        // Initialize page
         document.addEventListener('DOMContentLoaded', function() {
-            // Add entrance animations
             const matchCards = document.querySelectorAll('.match-card');
             matchCards.forEach((card, index) => {
                 card.style.opacity = '0';
@@ -617,7 +583,6 @@ $league_logo = getLeagueLogo($liga_data['ID_LIGA'], $liga_data['LOGO'] ?? '', $l
                 }, index * 100);
             });
 
-            // Set initial ARIA states
             document.querySelectorAll('.match-card').forEach(card => {
                 card.setAttribute('aria-hidden', 'false');
             });
@@ -636,7 +601,6 @@ $league_logo = getLeagueLogo($liga_data['ID_LIGA'], $liga_data['LOGO'] ?? '', $l
         opacity: 0.6;
     }
 
-    /* Enhanced match card styles */
     .match-card:hover {
         transform: translateY(-2px);
         box-shadow: 0 8px 25px rgba(0,0,0,0.15);
@@ -650,7 +614,6 @@ $league_logo = getLeagueLogo($liga_data['ID_LIGA'], $liga_data['LOGO'] ?? '', $l
         border-left: 3px solid var(--accent-red);
     }
 
-    /* Filter improvements */
     .filter-section {
         margin-bottom: 2rem;
         top: 80px;

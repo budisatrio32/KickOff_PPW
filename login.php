@@ -87,7 +87,6 @@
             }
         }
         
-        // Handle success message dari register
         if (isset($_GET['registered']) && $_GET['registered'] == 'success') {
             $success = "Registrasi berhasil! Silakan login dengan akun baru Anda.";
         }

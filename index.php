@@ -469,7 +469,7 @@
                 }
             });
         });
-        
+
         window.addEventListener('scroll', function() {
             const navbar = document.querySelector('.navbar-custom');
             if (window.scrollY > 50) {
@@ -478,20 +478,15 @@
                 navbar.style.background = 'rgba(30, 22, 22, 0.3)';
             }
         });
-
-        // Enhanced form submission
         document.getElementById('feedbackForm').addEventListener('submit', function(e) {
             const submitBtn = document.getElementById('submitBtn');
             const btnText = document.getElementById('btnText');
             const btnSpinner = document.getElementById('btnSpinner');
             
-            // Show loading state
             submitBtn.disabled = true;
             btnText.textContent = 'Sending...';
             btnSpinner.style.display = 'inline-block';
         });
-
-        // Character counter for message
         document.querySelector('textarea[name="pesan"]').addEventListener('input', function() {
             const remaining = 1000 - this.value.length;
             const counter = this.parentNode.querySelector('small');
@@ -503,8 +498,6 @@
                 counter.style.color = '#6c757d';
             }
         });
-
-        // Auto-hide alerts after 5 seconds
         setTimeout(function() {
             const alerts = document.querySelectorAll('.alert');
             alerts.forEach(alert => {

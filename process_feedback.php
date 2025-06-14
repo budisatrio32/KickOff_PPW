@@ -1,5 +1,4 @@
 <?php
-// process_feedback.php - Backend logic untuk feedback
 include_once("config.php");
 
 $response = array('success' => false, 'message' => '');
@@ -36,11 +35,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 $response['success'] = true;
                 $response['message'] = "Terima kasih atas feedback Anda! Pesan telah berhasil dikirim dan akan tampil di testimonials.";
                 
-                // Log successful feedback
                 error_log("New feedback from: " . $nama_user . " (" . $status . ")");
-                
-                // Optional: Send email notification to admin
-                // mail("admin@kickoff.com", "New Feedback from $nama_user", $pesan);
                 
             } else {
                 $response['message'] = "Gagal menyimpan feedback. Silakan coba lagi.";
@@ -54,7 +49,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         }
     }
     
-    // Redirect back dengan message
     if ($response['success']) {
         header("Location: index.php?feedback=success");
     } else {
@@ -63,7 +57,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     exit();
     
 } else {
-    // Jika bukan POST request
     header("Location: index.php");
     exit();
 }
