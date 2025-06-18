@@ -417,7 +417,7 @@ while($row = mysqli_fetch_assoc($stats_result)) {
     
     <!-- Content -->
     <main class="pb-4">
-        <div class="container">
+        <div class="container pt-4">
             <!-- Stats Info -->
             <div class="stats-info d-flex justify-content-between align-items-center">
                 <div>

@@ -9,9 +9,9 @@ ini_set('error_log', 'error.log');
 
 // Konfigurasi database
 $host = "localhost";
-$username = "root";
-$password = ""; // Sesuaikan dengan password MySQL Anda, biasanya kosong
-$database = "finaljadwalpertandingan"; // Nama database yang Anda buat
+$username = "u985354573_KickOff";
+$password = "KickOff2025"; // Sesuaikan dengan password MySQL Anda, biasanya kosong
+$database = "u985354573_KickOff"; // Nama database yang Anda buat
 
 // Membuat koneksi
 $conn = mysqli_connect($host, $username, $password, $database);

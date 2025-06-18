@@ -175,7 +175,7 @@ $league_logo = getLeagueLogo($liga_data['ID_LIGA'], $liga_data['LOGO'] ?? '', $l
 <nav class="navbar navbar-expand-lg navbar-custom fixed-top">
     <div class="container">
         <a class="navbar-brand d-flex align-items-center" href="<?php echo isLoggedIn() ? 'index.php' : 'index.php'; ?>">
-            <img src="Asset/logo.png" alt="Kickoff Logo" style="width: 80px; height: 65px;" class="me-2">
+            <img src="asset/Logo.png" alt="Kickoff Logo" style="width: 80px; height: 65px;" class="me-2">
         </a>
         
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
@@ -382,7 +382,7 @@ $league_logo = getLeagueLogo($liga_data['ID_LIGA'], $liga_data['LOGO'] ?? '', $l
                 <div class="col-lg-6 mb-4">
                     <div class="footer-brand">
                         <div class="footer-logo d-flex align-items-center">
-                            <img src="Asset/logo.png" alt="KickOff Logo" style="width: 80px; height: 65px;" class="me-2">
+                            <img src="asset/Logo.png" alt="Kickoff Logo" style="width: 80px; height: 65px;" class="me-2">
                         </div>
                     </div>
                     <p class="footer-description">
