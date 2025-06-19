@@ -228,7 +228,7 @@
                 // Query untuk ambil 4 feedback terbaru
                 $testimonial_query = "SELECT NAMA_USER, STATUS, PESAN, TANGGAL_FEEDBACK 
                                     FROM feedback 
-                                    WHERE LENGTH(PESAN) >= 20 
+                                    WHERE LENGTH(PESAN) >= 1 
                                     ORDER BY TANGGAL_FEEDBACK DESC 
                                     LIMIT 4";
                 
