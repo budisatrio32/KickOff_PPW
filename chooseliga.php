@@ -125,7 +125,7 @@ function getLogoPath($id_liga, $logo_from_db, $logo_mapping) {
                             <a class="nav-link" href="index.php">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="chooseliga.php">Leagues</a>
+                            <a class="nav-link" href="index.php#contact">Feedback</a>
                         </li>
                         
                         <?php if (isAdmin()): ?>

@@ -287,8 +287,9 @@ foreach ($tables as $table) {
     <header class="admin-header">
         <div class="container">
             <div class="row align-items-center">
-                <div class="col-md-6">
-                    <h1><i class="bi bi-speedometer2 me-2"></i>Admin Dashboard</h1>
+                <div class="col-md-6 d-flex align-items-center">
+                    <img src="asset\Logo.png" alt="KickOff Logo" height="50" class="me-3">
+                    <h1>Admin Dashboard</h1>
                 </div>
                 <div class="col-md-6 text-md-end">
                     <div class="user-info d-inline-block me-3">
@@ -417,7 +418,6 @@ foreach ($tables as $table) {
                         <li>Tambah, edit, hapus stadion</li>
                         <li>Data lokasi & kapasitas</li>
                         <li>Search & pagination</li>
-                        <li>Upload foto stadion</li>
                     </ul>
                 </a>
 
@@ -432,7 +432,6 @@ foreach ($tables as $table) {
                         <li>Tambah, edit, hapus pemain</li>
                         <li>Dropdown pilih tim</li>
                         <li>Pagination 500/page</li>
-                        <li>Search 4000+ data</li>
                     </ul>
                 </a>
 
